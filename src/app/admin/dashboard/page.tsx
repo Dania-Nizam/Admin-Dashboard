@@ -13,6 +13,7 @@ import {
   FiClock,
   FiTrash2,
   FiBarChart,
+  FiPlus ,
 } from "react-icons/fi";
 import Link from "next/link";
 
@@ -36,6 +37,7 @@ export default function AdminDashboard() {
   const [rent, setRent] = useState<Rent[]>([]);
   const [selectedRentId, setSelectedRentId] = useState<string | null>(null);
   const [filter, setFilter] = useState("All");
+  
 
   useEffect(() => {
     client
