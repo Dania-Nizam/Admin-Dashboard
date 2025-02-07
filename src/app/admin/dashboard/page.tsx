@@ -13,7 +13,8 @@ import {
   FiClock,
   FiTrash2,
   FiBarChart,
-  FiPlus ,
+  FiMoon,
+  FiSun,
 } from "react-icons/fi";
 import Link from "next/link";
 
@@ -37,7 +38,7 @@ export default function AdminDashboard() {
   const [rent, setRent] = useState<Rent[]>([]);
   const [selectedRentId, setSelectedRentId] = useState<string | null>(null);
   const [filter, setFilter] = useState("All");
-  
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   useEffect(() => {
     client
@@ -63,6 +64,12 @@ export default function AdminDashboard() {
       )
       .then((data) => setRent(data))
       .catch((error) => console.error("Error fetching orders:", error));
+
+    // Load theme from local storage if set
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      setIsDarkTheme(true);
+    }
   }, []);
 
   const filteredRent =
@@ -117,11 +124,24 @@ export default function AdminDashboard() {
     }
   };
 
+  // Function to toggle the theme
+  const toggleTheme = () => {
+    setIsDarkTheme((prevTheme) => {
+      const newTheme = !prevTheme;
+      localStorage.setItem("theme", newTheme ? "dark" : "light");
+      return newTheme;
+    });
+  };
+
   return (
     <ProtectedRoute>
-      <div className="flex h-screen bg-gray-100">
+      <div className={`flex h-screen ${isDarkTheme ? "bg-gray-900" : "bg-gray-100"}`}>
         {/* Sidebar */}
-        <aside className="bg-blue-400 text-white w-64 p-6 shadow-lg flex flex-col space-y-4">
+        <aside
+          className={`${
+            isDarkTheme ? "bg-blue-800 text-white" : "bg-blue-400 text-white"
+          } w-64 p-6 shadow-lg flex flex-col space-y-4`}
+        >
           <h2 className="text-2xl font-bold">Admin Dashboard</h2>
           <Link
             href="/admin/charts"
@@ -136,12 +156,22 @@ export default function AdminDashboard() {
             { status: "success", icon: <FiCheckCircle /> }].map(({ status, icon }) => (
             <button
               key={status}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${filter === status ? "bg-white text-blue-600 font-bold" : "text-white"}`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                filter === status ? "bg-white text-blue-600 font-bold" : "text-white"
+              }`}
               onClick={() => setFilter(status)}
             >
               {icon} {status.charAt(0).toUpperCase() + status.slice(1)}
             </button>
           ))}
+
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="flex items-center gap-2 px-4 py-2 mt-6 rounded-lg text-white hover:bg-white hover:text-blue-600 transition-all"
+          >
+            {isDarkTheme ? <FiSun /> : <FiMoon />} Toggle Theme
+          </button>
         </aside>
 
         {/* Orders Table */}
@@ -149,7 +179,7 @@ export default function AdminDashboard() {
           <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800">Orders</h2>
           <div className="overflow-x-auto bg-white shadow-lg rounded-lg p-6">
             <table className="min-w-full divide-y divide-gray-200 text-sm lg:text-base">
-              <thead className="bg-blue-50 text-blue-700">
+              <thead className={`${isDarkTheme ? "bg-blue-900 text-white" : "bg-blue-50 text-blue-700"}`}>
                 <tr>
                   <th className="p-3 text-left">ID</th>
                   <th className="p-3 text-left">Customer</th>

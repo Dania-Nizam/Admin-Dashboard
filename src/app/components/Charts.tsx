@@ -41,7 +41,23 @@ const DashboardCharts = () => {
     statusCount: { pending: 0, dispatch: 0, success: 0 },
   });
 
+  // State for theme toggle (dark/light mode)
+  const [theme, setTheme] = useState<string>("light");
+
+  // Toggle theme between light and dark
+  const toggleTheme = () => {
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === "light" ? "dark" : "light";
+      localStorage.setItem("theme", newTheme); // Save preference to localStorage
+      return newTheme;
+    });
+  };
+
   useEffect(() => {
+    // Get the saved theme from localStorage on initial load
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+
     client
       .fetch(`*[_type == "rent"]{ orderDate, total, status }`)
       .then((data) => {
@@ -70,60 +86,70 @@ const DashboardCharts = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-      {/* Bar Chart - Orders Per Day */}
-      <div className="bg-white p-6 shadow-lg rounded-xl">
-        <h3 className="text-lg font-bold mb-2">Orders Per Day</h3>
-        <Bar
-          data={{
-            labels: chartData.labels,
-            datasets: [
-              {
-                label: "Orders",
-                data: chartData.orders,
-                backgroundColor: "rgba(54, 162, 235, 0.6)",
-              },
-            ],
-          }}
-        />
-      </div>
+    <div className={`transition-colors duration-300 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
+      {/* Theme Toggle Button */}
+      <button
+        onClick={toggleTheme}
+        className="absolute top-4 right-4 p-2 bg-gray-800 text-white rounded-full"
+      >
+        Toggle Theme
+      </button>
 
-      {/* Line Chart - Revenue Over Time */}
-      <div className="bg-white p-6 shadow-lg rounded-xl">
-        <h3 className="text-lg font-bold mb-2">Revenue Over Time</h3>
-        <Line
-          data={{
-            labels: chartData.labels,
-            datasets: [
-              {
-                label: "Revenue ($)",
-                data: chartData.revenue,
-                borderColor: "rgb(75, 192, 192)",
-                fill: true,
-              },
-            ],
-          }}
-        />
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        {/* Bar Chart - Orders Per Day */}
+        <div className={`p-6 shadow-lg rounded-xl ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
+          <h3 className="text-lg font-bold mb-2">Orders Per Day</h3>
+          <Bar
+            data={{
+              labels: chartData.labels,
+              datasets: [
+                {
+                  label: "Orders",
+                  data: chartData.orders,
+                  backgroundColor: "rgba(54, 162, 235, 0.6)",
+                },
+              ],
+            }}
+          />
+        </div>
 
-      {/* Pie Chart - Order Status */}
-      <div className="bg-white p-6 shadow-lg rounded-xl">
-        <h3 className="text-lg font-bold mb-2">Order Status</h3>
-        <Pie
-          data={{
-            labels: ["Pending", "Dispatch", "Success"],
-            datasets: [
-              {
-                data: [
-                  chartData.statusCount.pending,
-                  chartData.statusCount.dispatch,
-                  chartData.statusCount.success,
-                ],
-                backgroundColor: ["#facc15", "#3b82f6", "#22c55e"],
-              },
-            ],
-          }}
-        />
+        {/* Line Chart - Revenue Over Time */}
+        <div className={`p-6 shadow-lg rounded-xl ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
+          <h3 className="text-lg font-bold mb-2">Revenue Over Time</h3>
+          <Line
+            data={{
+              labels: chartData.labels,
+              datasets: [
+                {
+                  label: "Revenue ($)",
+                  data: chartData.revenue,
+                  borderColor: "rgb(75, 192, 192)",
+                  fill: true,
+                },
+              ],
+            }}
+          />
+        </div>
+
+        {/* Pie Chart - Order Status */}
+        <div className={`p-6 shadow-lg rounded-xl ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
+          <h3 className="text-lg font-bold mb-2">Order Status</h3>
+          <Pie
+            data={{
+              labels: ["Pending", "Dispatch", "Success"],
+              datasets: [
+                {
+                  data: [
+                    chartData.statusCount.pending,
+                    chartData.statusCount.dispatch,
+                    chartData.statusCount.success,
+                  ],
+                  backgroundColor: ["#facc15", "#3b82f6", "#22c55e"],
+                },
+              ],
+            }}
+          />
+        </div>
       </div>
     </div>
   );
