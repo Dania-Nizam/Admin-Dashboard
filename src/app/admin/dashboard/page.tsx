@@ -17,6 +17,7 @@ import {
   FiSun,
 } from "react-icons/fi";
 import Link from "next/link";
+import { CiLogout } from "react-icons/ci";
 
 interface Rent {
   _id: string;
@@ -172,7 +173,13 @@ export default function AdminDashboard() {
           >
             {isDarkTheme ? <FiSun /> : <FiMoon />} Toggle Theme
           </button>
+
+           {/* logout */}
+
+        <Link href="/" className="flex items-center gap-2 px-4 py-2 mt-6 rounded-lg text-white hover:bg-white hover:text-blue-600 transition-all"> Logout<CiLogout  /></Link>
         </aside>
+
+       
 
         {/* Orders Table */}
         <div className="flex-1 p-6 overflow-y-auto">

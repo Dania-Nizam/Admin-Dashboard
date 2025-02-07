@@ -1,9 +1,13 @@
+"use client";
+
 import AdminLogin from './admin/page';
 
 export default function Home() {
+ 
   return (
     <div>
-        <AdminLogin/>
+      
+      <AdminLogin />
     </div>
   );
 }
