@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🛠️ Admin Dashboard – Car Rental Management  
 
-## Getting Started
+## 🔐 Secure Access  
+The **Admin Dashboard** is protected by authentication.  
+- When you visit the dashboard, you will first see the **login page**.  
+- **Access is restricted** – you must log in to proceed.  
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📊 Dashboard Features  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 📈 Analytics Panel  
+Gain valuable insights into business performance with **interactive charts**:  
+- **📊 Bar Chart** – Displays **orders per day** for a clear view of daily transactions.  
+- **📉 Line Chart** – Tracks **revenue over time**, helping analyze financial growth.  
+- **🥧 Pie Chart** – Shows the **order status breakdown** (Pending, Dispatched, and Successful Orders).  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 📦 Order Management  
+Efficiently manage customer orders with full control over their status:  
+- **View and track orders** in real-time, categorized into:  
+  - ✅ **All Orders**  
+  - 🚀 **Dispatched Orders**  
+  - ⏳ **Pending Orders**  
+  - 🎯 **Successful Orders**  
+- **Order details include:**  
+  - Customer Name  
+  - Order Image  
+  - Order Date  
+  - Email Address  
+  - Shipping Address  
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### 🔄 Order Status Updates  
+- **Change order status seamlessly:**  
+  - **Pending → Dispatched**  
+  - **Dispatched → Successful**  
 
-## Learn More
+#### 🗑️ Delete Orders  
+- **Admins can delete orders** directly from the dashboard when necessary.  
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Theme Customization  
+- A **theme toggle button** allows users to switch between **light and dark mode** for a personalized experience.  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🚪 Logout Functionality  
+- **Admins can securely log out** at any time using the **Logout button**.  
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔗 Seamless Data Integration  
+- **All data is dynamically fetched** from the **Car Rental Website**.  
+- **Real-time updates** ensure that analytics, order details, and management tools reflect the latest activity.  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+## 💡 Why This Admin Dashboard?  
+✅ **User Authentication for Secure Access**  
+✅ **Interactive Charts for Business Insights**  
+✅ **Full Order Management & Status Updates**  
+✅ **Real-Time Order Deletion & Editing**  
+✅ **Light/Dark Theme Customization**  
+✅ **Seamless Integration with Car Rental Website**  
+
+🚀 **Empower your business with a data-driven, easy-to-use admin panel!**  
